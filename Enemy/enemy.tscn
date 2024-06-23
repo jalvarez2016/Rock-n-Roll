@@ -1,12 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://ebab0ayeofsh"]
+[gd_scene load_steps=7 format=3 uid="uid://ebab0ayeofsh"]
 
 [ext_resource type="Script" path="res://Enemy/Enemy.gd" id="1_pr7qx"]
 [ext_resource type="Texture2D" uid="uid://32320c4v6nqg" path="res://Assets/characters/Medusa/tile_0099.png" id="1_y2d2f"]
+[ext_resource type="Script" path="res://Enemy/HitBox.gd" id="3_8uk0p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mhq6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2asey"]
 radius = 55.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trohv"]
 
 [node name="Enemy" type="CharacterBody2D"]
 motion_mode = 1
@@ -26,5 +29,19 @@ debug_enabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
 shape = SubResource("CircleShape2D_2asey")
 
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("enemy", "attack_timer") groups=["Enemy"]]
+script = ExtResource("3_8uk0p")
+enemy = NodePath("..")
+attack_timer = NodePath("../AttackTimer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_trohv")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.6
+
 [connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]
 [connection signal="area_exited" from="Detection" to="." method="_on_detection_area_exited"]
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="Hitbox" method="_on_area_exited"]
+[connection signal="timeout" from="AttackTimer" to="Hitbox" method="_on_attack_timer_timeout"]

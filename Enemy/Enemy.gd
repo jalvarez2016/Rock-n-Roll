@@ -1,8 +1,13 @@
 extends CharacterBody2D
+class_name Enemy
 
 var speed = 50
 var acceleration = 7
 var player : Player = null
+
+var attack : int = 3
+var defense : int = 2
+var health : float = 10.0
 
 @onready var nav_agent : NavigationAgent2D = $NavigationAgent2D
 
@@ -25,4 +30,9 @@ func _on_detection_area_entered(area):
 
 func _on_detection_area_exited(area):
 	player = null
+	pass # Replace with function body.
+
+
+
+func _on_hitbox_area_exited(area):
 	pass # Replace with function body.

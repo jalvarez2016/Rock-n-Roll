@@ -3,18 +3,16 @@ class_name Player
 
 @export var controls : Resource = null
 @export var health : int = 100
-@export var defense : int = 5
+@export var defense : int = 1
 @export var attack : int = 8
-@export var player_index : bool
+@export var UI_manager : Control
+
 
 
 const SPEED = 45.0
 const JUMP_VELOCITY = -400.0
 
 var is_sprinting : bool = false
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 func _physics_process(_delta):
@@ -28,3 +26,13 @@ func _physics_process(_delta):
 		velocity.y = move_toward(velocity.y , 0, SPEED)
 
 	move_and_slide()
+
+
+func damage(attack_damage : int):
+	if (attack_damage - defense > 0): 
+		health -= attack_damage - defense
+		UI_manager.update_health(health)
+		print('player health: ', health)
+	else:
+		#do vfx that no damage was done
+		pass

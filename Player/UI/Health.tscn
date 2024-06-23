@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://6hjmsx66wo6d"]
+
+[ext_resource type="Script" path="res://Player/UI/Health.gd" id="1_6pfwt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_takvx"]
+bg_color = Color(0.680777, 0.178933, 0.28805, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Control" type="Control" node_paths=PackedStringArray("health_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6pfwt")
+health_label = NodePath("Panel/Health")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.5
+offset_top = -18.5
+offset_right = 72.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_takvx")
+
+[node name="Health" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -11.5
+offset_right = 46.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "HP: 100/100"
